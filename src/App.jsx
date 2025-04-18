@@ -19,24 +19,23 @@ function App() {
           <Route
             path="/"
             element={
-              <PrivateRoute>
+              <div className="test">
+                <Sidebar />
                 <div className="test">
-                  <Sidebar />
-                  <div className="test">
-                    <Header />
-                    <HomeScreen />
-                  </div>
+                  <Header />
+                  <HomeScreen />
                 </div>
-              </PrivateRoute>
+              </div>
             }
           />
+
           <Route
             path="/new-tap"
             element={
               <PrivateRoute>
-                <div className="test">
+                <div className="">
                   <Sidebar />
-                  <div className="test">
+                  <div className="">
                     <Header />
                     <NewTapScreen />
                   </div>

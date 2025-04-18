@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+.colour-helper {
+  --color-primary1: #5B3A9D;
+  --color-primary2: #6B46C1;
+  --color-primary3: #805AD5;
+  --color-primary4: #9F7AEA;
+  --color-primary5: #B3A2DE;
+  --color-secondary1: #D67E22;
+  --color-secondary2: #E8A317;
+  --color-secondary3: #F59E0B;
+  --color-secondary4: #F6E05E;
+  --color-secondary5: #F9D949;
+  --color-text: #1A202C;
+  --color-border: #7c8493;
+  --color-background: #FFFFFF;
+}
+
 @theme {
   --color-primary1: #5B3A9D;
   --color-primary2: #6B46C1;
@@ -12,7 +28,7 @@
   --color-secondary4: #F6E05E;
   --color-secondary5: #F9D949;
   --color-text: #1A202C;
-  --color-border: #2D3748;
+  --color-borders: #7c8493;
   --color-background: #FFFFFF;
 }
 
@@ -37,11 +53,50 @@
 
 @layer components {
   .gradient-text {
-    @apply bg-gradient-to-r from-black to-primary3 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-primary1 to-primary3 bg-clip-text text-transparent;
   }
 
   .section-border {
-    @apply border border-gray-700 rounded;
+    @apply border border-borders rounded;
+  }
+
+  .flashy-shadow {
+    position: relative;
+  }
+
+  .flashy-shadow:hover::before {
+    transform: scale(1.05);
+  }
+
+  .flashy-shadow::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(40deg, #fafa00,
+    #f79d03,
+    #ee6907,
+    #e6390a,
+    #de0d0d,
+    #d61039,
+    #cf1261,
+    #c71585,
+    #d61039,
+    #e75c3c,
+    #e8a44a,
+    #a3acf2,
+    #8f9bff,
+    #5680ea,
+    #6b46c1,
+    #5b3a9d,
+    #6b46c1,
+    #5b3a9d
+    );
+    filter: blur(4px);
+    /* transform: translate3d(0px, 0px, -1px); */
+    border-radius: inherit;
+    /* pointer-events: none; */
+    transition: transform 0.66s ease-in-out;
+    z-index: -1;
   }
 }
 

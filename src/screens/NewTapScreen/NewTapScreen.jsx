@@ -46,7 +46,7 @@ const NewTapScreen = () => {
                   className="w-full p-3 text-xl font-serif border border-gray-300 rounded"
                 />
                 <p className="mt-1 text-sm text-gray-500">
-                  Keep it short and impactful. Remember, this is what your audience sees first.
+                  Keep it short and impactful - Remember: most of your audience will only see this!
                 </p>
               </div>
 
@@ -55,7 +55,7 @@ const NewTapScreen = () => {
                   Full View Content (Optional)
                 </label>
                 <textarea
-                  placeholder="Add detailed content for those who want to dive deeper (text or video URL)"
+                  placeholder="Add more context or support your main message for those who dive deeper (text or video URL)"
                   value={section.fullView}
                   onChange={(e) => updateSection(index, 'fullView', e.target.value)}
                   className="w-full min-h-[150px] p-3 text-base font-sans border border-gray-300 rounded resize-y"
@@ -73,7 +73,7 @@ const NewTapScreen = () => {
               onClick={addSection}
               className="px-6 py-3 rounded text-base font-medium cursor-pointer transition-opacity border border-gray-300 hover:opacity-90"
             >
-              Add Section
+              Add more
             </WhiteButton>
 
             <BlackButton
