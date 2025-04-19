@@ -27,13 +27,9 @@ function App() {
             <Route
               path="/"
               element={
-                <div className="test">
-                  <Sidebar />
-                  <div className="test">
-                    <Header />
-                    <HomeScreen />
-                  </div>
-                </div>
+                <AppLayout>
+                  <HomeScreen />
+                </AppLayout>
               }
             />
 
@@ -71,11 +67,9 @@ function App() {
             <Route
               path="/space/:spaceId"
               element={
-                <PrivateRoute>
-                  <AppLayout>
-                    <SpaceScreen />
-                  </AppLayout>
-                </PrivateRoute>
+                <AppLayout>
+                  <SpaceScreen />
+                </AppLayout>
               }
             />
           </Routes>

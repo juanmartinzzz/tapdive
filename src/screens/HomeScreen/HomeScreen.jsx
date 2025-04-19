@@ -22,7 +22,7 @@ const HomeScreen = () => {
   ];
 
   return (
-    <div className="ml-[250px] mt-[80px] p-8 min-h-[calc(100vh-80px)]">
+    <div className="py-12 min-h-[calc(100vh-80px)]">
       <div className="max-w-[800px] mx-auto">
         {sampleTaps.map(tap => (
           <Tap

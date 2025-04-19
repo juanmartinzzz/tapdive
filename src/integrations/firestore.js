@@ -111,12 +111,21 @@ const firestore = {
       return docRef;
     },
     getForUser: async ({userId}) => {
-      const docRefs = await firestore.helperGetDocs({collectionName: 'spaces', ids: null});
+      /** @TODO FILTER AT QUERY LEVEL INSTEAD OF CLIENT SIDE */
+      const docRefs = await firestore.helperGetDocs({collectionName: 'spaces'});
 
       // Filter spaces for the current user
-      const userSpaces = docRefs.filter(space => space.userId === userId);
+      const userSpaces = docRefs.filter(space => space.userId === userId && !space.isArchived);
 
       return userSpaces;
+    },
+    archive: async ({data}) => {
+      const docRef = await firestore.helperUpsertDoc({collectionName: 'spaces', data: {
+        ...data,
+        isArchived: true,
+      }});
+
+      return docRef;
     }
   },
   userSpaceId: {

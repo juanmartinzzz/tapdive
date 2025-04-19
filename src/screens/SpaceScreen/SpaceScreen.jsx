@@ -92,7 +92,7 @@ const SpaceScreen = () => {
     }
   };
 
-  const handleDelete = async () => {
+  const handleDelete = async ({space}) => {
     if (!window.confirm('Are you sure you want to delete this space? This action cannot be undone.')) {
       return;
     }
@@ -100,9 +100,8 @@ const SpaceScreen = () => {
     setIsLoading(true);
 
     try {
-      // Delete space from firestore
-      // This would need to be implemented in firestore.js
-      // For now, we'll just navigate away
+      // Archive space on firestore
+      await firestore.space.archive({ data: space });
 
       // Remove from spaces list
       const updatedSpaces = spaces.filter(s => s.id !== spaceId);
@@ -137,7 +136,7 @@ const SpaceScreen = () => {
             <WhiteButton onClick={() => setIsEditing(true)}>
               Edit
             </WhiteButton>
-            <BlackButton onClick={handleDelete} disabled={isLoading}>
+            <BlackButton onClick={() => handleDelete({space})} disabled={isLoading}>
               Delete
             </BlackButton>
           </div>
