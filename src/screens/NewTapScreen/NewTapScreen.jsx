@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import firestore from '../../integrations/firestore';
+import { useAuth } from '../../contexts/AuthContext';
 import BlackButton from '../../components/BlackButton';
 import WhiteButton from '../../components/WhiteButton';
 
 const NewTapScreen = () => {
   const navigate = useNavigate();
+  const { currentUser } = useAuth();
   const [sections, setSections] = useState([{ fastView: '', fullView: '' }]);
 
   const addSection = () => {
@@ -17,21 +20,25 @@ const NewTapScreen = () => {
     setSections(newSections);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Here you would typically send the data to your backend
+  const handleSubmit = async (e) => {
     console.log('Submitting tap:', sections);
-    navigate('/');
+    const tapRef = await firestore.tap.upsert({data: {sections, userId: currentUser.uid}});
+    const userTapRef = await firestore.userTapId.upsert({userId: currentUser.uid, data: {tapId: tapRef.id}});
+
+    if(tapRef.id && userTapRef.id) {
+      navigate(`/tap/${tapRef.id}`);
+    }
   };
 
   return (
-    <div className="ml-[250px] mt-[80px] p-8 min-h-[calc(100vh-80px)]">
+    <div className="py-12">
       <div className="max-w-[800px] mx-auto">
         <div className="mb-8 text-center text-gray-600">
           <p className="mb-2">Create engaging content that captures attention and delivers value.</p>
           <p className="text-sm">Each section can include both a quick overview and detailed content.</p>
         </div>
-        <form onSubmit={handleSubmit}>
+
+        <div>
           {sections.map((section, index) => (
             <div key={index} className="mb-6 p-6 section-border">
               <div className="mb-4">
@@ -42,7 +49,7 @@ const NewTapScreen = () => {
                   type="text"
                   placeholder="Write a clear, concise message (text or video URL)"
                   value={section.fastView}
-                  onChange={(e) => updateSection(index, 'fastView', e.target.value)}
+                  onChange={({ target }) => updateSection(index, 'fastView', target.value)}
                   className="w-full p-3 text-xl font-serif border border-gray-300 rounded"
                 />
                 <p className="mt-1 text-sm text-gray-500">
@@ -57,7 +64,7 @@ const NewTapScreen = () => {
                 <textarea
                   placeholder="Add more context or support your main message for those who dive deeper (text or video URL)"
                   value={section.fullView}
-                  onChange={(e) => updateSection(index, 'fullView', e.target.value)}
+                  onChange={({ target }) => updateSection(index, 'fullView', target.value)}
                   className="w-full min-h-[150px] p-3 text-base font-sans border border-gray-300 rounded resize-y"
                 />
                 <p className="mt-1 text-sm text-gray-500">
@@ -78,12 +85,13 @@ const NewTapScreen = () => {
 
             <BlackButton
               type="submit"
+              onClick={handleSubmit}
               className="px-6 py-3 rounded text-base font-medium cursor-pointer transition-opacity bg-gradient-to-r from-primary to-secondary text-white hover:opacity-90"
             >
               Create Tap
             </BlackButton>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );
