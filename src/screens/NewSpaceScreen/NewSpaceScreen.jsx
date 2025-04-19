@@ -86,7 +86,7 @@ const NewSpaceScreen = () => {
             value={name}
             placeholder="Your company, project or theme for this space"
             onChange={(e) => setName(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border border-soft-gray rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
         </div>
@@ -108,7 +108,7 @@ const NewSpaceScreen = () => {
             id="isPublic"
             checked={isPublic}
             onChange={(e) => setIsPublic(e.target.checked)}
-            className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+            className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-soft-gray rounded"
           />
           <label htmlFor="isPublic" className="ml-2 block text-sm text-gray-700">
             Public Space

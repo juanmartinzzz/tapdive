@@ -45,7 +45,7 @@ const EditableSection = ({ section, index, onUpdate, isEditing }) => {
             type="text"
             value={section.fastView}
             onChange={(e) => onUpdate(index, 'fastView', e.target.value)}
-            className="w-full p-3 text-4xl font-bold border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full p-3 text-4xl font-bold border border-soft-gray rounded focus:outline-none focus:ring-2 focus:ring-primary"
             placeholder="Write a clear, concise message"
           />
         </div>
@@ -57,7 +57,7 @@ const EditableSection = ({ section, index, onUpdate, isEditing }) => {
           <textarea
             value={section.fullView}
             onChange={(e) => onUpdate(index, 'fullView', e.target.value)}
-            className="w-full min-h-[150px] p-3 text-lg border border-gray-300 rounded resize-y focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full min-h-[150px] p-3 text-lg border border-soft-gray rounded resize-y focus:outline-none focus:ring-2 focus:ring-primary"
             placeholder="Add more context or support your main message"
           />
         </div>

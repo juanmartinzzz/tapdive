@@ -57,7 +57,7 @@ const EmojiPicker = ({ onSelect, value = '', className = '' }) => {
   return (
     <div className={`relative ${className}`}>
       <div
-        className={`w-full px-4 py-2 border border-gray-300 ${isOpen ? 'rounded-t-md' : 'rounded-md'} focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer flex items-center justify-between`}
+        className={`w-full px-4 py-2 border border-soft-gray ${isOpen ? 'rounded-t-md' : 'rounded-md'} focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer flex items-center justify-between`}
         onClick={() => setIsOpen(!isOpen)}
       >
         <span>{value || 'Select an emoji'}</span>
@@ -65,14 +65,14 @@ const EmojiPicker = ({ onSelect, value = '', className = '' }) => {
       </div>
 
       {isOpen && (
-        <div className="absolute z-10 w-full -mt-1 bg-white border border-gray-300 rounded-b-md shadow-lg">
+        <div className="absolute z-10 w-full -mt-1 bg-white border border-soft-gray rounded-b-md shadow-lg">
           <div className="sticky top-0 bg-white z-10 p-2">
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search emojis by name or category..."
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-soft-gray rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               onClick={(e) => e.stopPropagation()}
             />
 

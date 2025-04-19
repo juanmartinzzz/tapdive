@@ -12,8 +12,9 @@ const Tap = ({ title, content }) => {
         <h2 className="text-xl m-0">{title}</h2>
         <span className={`text-sm transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}>▼</span>
       </button>
+
       {isExpanded && (
-        <div className="p-4 border-t border-gray-700">
+        <div className="p-4 border-t border-soft-gray">
           {content}
         </div>
       )}

@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Eye } from "lucide-react";
+import { useNavigate } from "react-router";
 
 const PrivateTaps = ({taps}) => {
+  const navigate = useNavigate();
   const [isExpanded, setIsExpanded] = useState(true);
 
   return (

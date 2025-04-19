@@ -20,7 +20,7 @@ const Header = ({ headerHeightPixels, sidebarWidth }) => {
   };
 
   return (
-    <header className={`h-[80px] px-8 fixed top-0 right-0 left-0 md:left-64 border-b border-borders bg-white z-10`}>
+    <header className={`h-[80px] px-8 fixed top-0 right-0 left-0 md:left-64 border-b border-soft-gray bg-white z-10`}>
       <div className="h-full flex items-center justify-between">
         <div className="flex items-center">
           <h1 className="text-3xl tracking-wider gradient-text">Tapdive</h1>

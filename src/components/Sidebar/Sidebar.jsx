@@ -32,11 +32,11 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, sidebarWidth }) => {
   };
 
   return (
-    <div className={`w-0 p-0 md:w-64 md:px-4 h-screen flex flex-col justify-between bg-white border-r border-borders fixed left-0 top-0 ${isSidebarOpen ? 'block' : 'hidden'} overflow-hidden`}>
+    <div className={`w-0 p-0 md:w-64 md:px-4 h-screen flex flex-col justify-between bg-white border-r border-soft-gray fixed left-0 top-0 ${isSidebarOpen ? 'block' : 'hidden'} overflow-hidden`}>
       <div>
         {currentUser ? (
-          <div className="h-[80px] flex items-center gap-4 border-b border-borders">
-            <div className="w-10 h-10 rounded-full overflow-hidden shadow-xs shadow-black/50">
+          <div className="h-[80px] flex items-center gap-4 border-b border-soft-gray">
+            <div className="w-10 h-10 rounded-full overflow-hidden shadow-sm shadow-black/70">
               <img src="https://i.pravatar.cc/300" alt="User" className="w-full h-full object-cover" />
             </div>
 

@@ -50,7 +50,7 @@ const NewTapScreen = () => {
                   placeholder="Write a clear, concise message (text or video URL)"
                   value={section.fastView}
                   onChange={({ target }) => updateSection(index, 'fastView', target.value)}
-                  className="w-full p-3 text-xl font-serif border border-gray-300 rounded"
+                  className="w-full p-3 text-xl font-serif border border-soft-gray rounded"
                 />
                 <p className="mt-1 text-sm text-gray-500">
                   Keep it short and impactful - Remember: most of your audience will only see this!
@@ -65,7 +65,7 @@ const NewTapScreen = () => {
                   placeholder="Add more context or support your main message for those who dive deeper (text or video URL)"
                   value={section.fullView}
                   onChange={({ target }) => updateSection(index, 'fullView', target.value)}
-                  className="w-full min-h-[150px] p-3 text-base font-sans border border-gray-300 rounded resize-y"
+                  className="w-full min-h-[150px] p-3 text-base font-sans border border-soft-gray rounded resize-y"
                 />
                 <p className="mt-1 text-sm text-gray-500">
                   This is where you can share your complete message, insights, or story.
@@ -78,7 +78,7 @@ const NewTapScreen = () => {
             <WhiteButton
               type="button"
               onClick={addSection}
-              className="px-6 py-3 rounded text-base font-medium cursor-pointer transition-opacity border border-gray-300 hover:opacity-90"
+              className="px-6 py-3 rounded text-base font-medium cursor-pointer transition-opacity border border-soft-gray hover:opacity-90"
             >
               Add more
             </WhiteButton>
