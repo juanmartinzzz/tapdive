@@ -40,10 +40,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, sidebarWidth }) => {
               <img src="https://i.pravatar.cc/300" alt="User" className="w-full h-full object-cover" />
             </div>
 
-            <div className="flex flex-col">
-              <span className="font-medium">{currentUser.email}</span>
-              <span className="text-xs text-gray-500">User</span>
-            </div>
+            <span>U</span>
           </div>
         ) : (
           <div className="mt-3 flex flex-col gap-2">
@@ -61,7 +58,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, sidebarWidth }) => {
                 onClick={() => setIsSpacesExpanded(!isSpacesExpanded)}
               >
                 <h3 className="font-medium">Spaces</h3>
-                <span>{isSpacesExpanded ? '▼' : '▶'}</span>
+                {/* <span>{isSpacesExpanded ? '▼' : '▶'}</span> */}
               </div>
 
               {isSpacesExpanded && (
@@ -83,7 +80,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, sidebarWidth }) => {
                     <p className="text-sm text-gray-500 p-2">No spaces yet</p>
                   )}
 
-                  <div className="mt-2">
+                  <div className="mt-8 flex justify-center">
                     <WhiteButton onClick={() => navigate('/new-space')}>
                       New Space
                     </WhiteButton>

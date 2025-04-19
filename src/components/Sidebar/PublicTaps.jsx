@@ -11,7 +11,7 @@ const PublicTaps = ({taps}) => {
         onClick={() => setIsExpanded(!isExpanded)}
       >
         <span>Taps</span>
-        <span className={`text-sm transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}>▼</span>
+        {/* <span className={`text-sm transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}>▼</span> */}
       </button>
 
       {isExpanded && (

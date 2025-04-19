@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Earth, Eye } from "lucide-react";
+import { Eye } from "lucide-react";
 
 const PrivateTaps = ({taps}) => {
   const [isExpanded, setIsExpanded] = useState(true);
@@ -11,7 +11,7 @@ const PrivateTaps = ({taps}) => {
         onClick={() => setIsExpanded(!isExpanded)}
       >
         <span>Private Taps</span>
-        <span className={`text-sm transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}>▼</span>
+        {/* <span className={`text-sm transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}>▼</span> */}
       </button>
       {isExpanded && (
         <div className="flex flex-col pl-2">
