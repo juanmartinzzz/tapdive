@@ -74,6 +74,14 @@ const firestore = {
       const docRefs = await firestore.helperGetDocs({collectionName: 'taps', ids});
 
       return docRefs;
+    },
+    archive: async ({data}) => {
+      const docRef = await firestore.helperUpsertDoc({collectionName: 'taps', data: {
+        ...data,
+        isArchived: true,
+      }});
+
+      return docRef;
     }
   },
   userTapId: {
@@ -121,6 +129,21 @@ const firestore = {
     },
     archive: async ({data}) => {
       const docRef = await firestore.helperUpsertDoc({collectionName: 'spaces', data: {
+        ...data,
+        isArchived: true,
+      }});
+
+      return docRef;
+    }
+  },
+  spaceTap: {
+    upsert: async ({spaceId, data}) => {
+      const docRef = await firestore.helperUpsertDoc({collectionName: `spaces/${spaceId}/taps`, data});
+
+      return docRef;
+    },
+    archive: async ({spaceId, data}) => {
+      const docRef = await firestore.helperUpsertDoc({collectionName: `spaces/${spaceId}/taps`, data: {
         ...data,
         isArchived: true,
       }});

@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useEffect, useState } from "react";
 import firestore from "../../integrations/firestore";
 import WhiteButton from "../../components/WhiteButton";
@@ -68,7 +68,7 @@ const EditableSection = ({ section, index, onUpdate, isEditing }) => {
 
 const TapScreen = () => {
   const { tapId } = useParams();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [tap, setTap] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editedSections, setEditedSections] = useState([]);
@@ -108,6 +108,14 @@ const TapScreen = () => {
     }
   };
 
+  const handleArchive = async ({tap}) => {
+    try {
+      await firestore.tap.archive({data: tap});
+      navigate('/');
+    } catch (error) {
+      console.error('Error archiving tap:', error);
+    }
+  };
   if (!tap) return null;
 
   return (
@@ -146,11 +154,19 @@ const TapScreen = () => {
             </WhiteButton>
           </>
         ) : (
-          <WhiteButton onClick={() => setIsEditing(true)}>
-            <div className="flex items-center gap-2">
-              Edit this Tap <PencilIcon size={24} />
-            </div>
-          </WhiteButton>
+          <>
+            <WhiteButton onClick={() => setIsEditing(true)}>
+              <div className="flex items-center gap-2">
+                Edit this Tap
+              </div>
+            </WhiteButton>
+
+            <BlackButton onClick={handleArchive}>
+              <div className="flex items-center gap-2">
+                Archive
+              </div>
+            </BlackButton>
+          </>
         )}
       </div>
     </div>
