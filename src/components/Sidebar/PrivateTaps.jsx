@@ -12,7 +12,7 @@ const PrivateTaps = ({taps}) => {
         className="flex items-center justify-between border-none bg-transparent text-gray-800 text-base cursor-pointer text-left w-full hover:bg-gray-100"
         onClick={() => setIsExpanded(!isExpanded)}
       >
-        <span>Private Taps</span>
+        <h3 className="font-bold">Private Taps</h3>
         {/* <span className={`text-sm transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}>▼</span> */}
       </button>
       {isExpanded && (
