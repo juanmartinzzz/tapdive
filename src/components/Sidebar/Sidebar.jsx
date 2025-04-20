@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useSpace } from '../../contexts/SpaceContext';
 import firestore from '../../integrations/firestore';
+import SpaceTaps from './SpaceTaps';
 
 const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, sidebarWidth }) => {
   const navigate = useNavigate();
@@ -57,8 +58,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, sidebarWidth }) => {
                 className="flex items-center justify-between cursor-pointer"
                 onClick={() => setIsSpacesExpanded(!isSpacesExpanded)}
               >
-                <h3 className="font-medium">Spaces</h3>
-                {/* <span>{isSpacesExpanded ? '▼' : '▶'}</span> */}
+                <h3 className="font-bold">Spaces</h3>
               </div>
 
               {isSpacesExpanded && (
@@ -67,12 +67,15 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, sidebarWidth }) => {
                     spaces.map(space => (
                       <div
                         key={space.id}
-                        className={`p-2 rounded cursor-pointer ${currentSpace && currentSpace.id === space.id ? 'bg-gray-100' : 'hover:bg-gray-50'}`}
-                        onClick={() => handleSpaceClick(space)}
+                        className="rounded cursor-pointer"
                       >
-                        <div className="flex items-center gap-2">
+                        <div className={`flex items-center gap-2 ${currentSpace && currentSpace.id === space.id ? 'bg-gray-100' : 'hover:bg-gray-50'}`} onClick={() => handleSpaceClick(space)}>
                           <span>{space.emoji || '🚀'}</span>
                           <span className="truncate">{space.name}</span>
+                        </div>
+
+                        <div className="mt-2 pl-4">
+                          <SpaceTaps spaceId={space.id} />
                         </div>
                       </div>
                     ))

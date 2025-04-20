@@ -4,10 +4,12 @@ import firestore from '../../integrations/firestore';
 import { useAuth } from '../../contexts/AuthContext';
 import BlackButton from '../../components/BlackButton';
 import WhiteButton from '../../components/WhiteButton';
+import { useSpace } from '../../contexts/SpaceContext';
 
 const NewTapScreen = () => {
   const navigate = useNavigate();
   const { currentUser } = useAuth();
+  const { currentSpace } = useSpace();
   const [sections, setSections] = useState([{ fastView: '', fullView: '' }]);
 
   const addSection = () => {
@@ -22,7 +24,12 @@ const NewTapScreen = () => {
 
   const handleSubmit = async (e) => {
     console.log('Submitting tap:', sections);
-    const tapRef = await firestore.tap.upsert({data: {sections, userId: currentUser.uid}});
+    const data = {sections, userId: currentUser.uid};
+    if(currentSpace) {
+      data.spaceId = currentSpace.id;
+    }
+
+    const tapRef = await firestore.tap.upsert({data});
     const userTapRef = await firestore.userTapId.upsert({userId: currentUser.uid, data: {tapId: tapRef.id}});
 
     if(tapRef.id && userTapRef.id) {

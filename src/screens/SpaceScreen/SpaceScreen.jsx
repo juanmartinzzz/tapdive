@@ -33,9 +33,7 @@ const SpaceScreen = () => {
         // Set as current space in global context
         setCurrentSpace(spaceData);
 
-        // Fetch taps for this space
-        // This would need to be implemented in firestore.js
-        // For now, we'll just set an empty array
+        /** @TODO Fetch taps for this space from firestore */
         setTaps([]);
       } catch (error) {
         console.error('Error fetching space:', error);
@@ -47,7 +45,8 @@ const SpaceScreen = () => {
 
     // Cleanup function to reset current space when component unmounts
     return () => {
-      setCurrentSpace(null);
+      // Removed so user stays in context of a Space after navigating away from this screen
+      // setCurrentSpace(null);
     };
   }, [spaceId, setCurrentSpace]);
 
@@ -254,7 +253,7 @@ const SpaceScreen = () => {
 
             <div className="mt-4">
               <WhiteButton onClick={() => navigate('/new-tap')}>
-                Add New Tap
+                New Tap
               </WhiteButton>
             </div>
           </div>

@@ -55,6 +55,11 @@ const firestore = {
 
     return data;
   },
+  helperGetDocsByQuery: async ({q}) => {
+    const snapshot = await getDocs(q);
+
+    return snapshot.docs.map(doc => ({...doc.data(), id: doc.id}));
+  },
   tap: {
     upsert: async ({data}) => {
       const dataToUpsert = {
@@ -69,6 +74,11 @@ const firestore = {
       const docRef = await firestore.helperGetDoc({collection: 'taps', id});
 
       return docRef;
+    },
+    getBySpaceId: async ({spaceId}) => {
+      const docRefs = await firestore.helperGetDocsByQuery({q: query(collection(db, 'taps'), where('spaceId', '==', spaceId))});
+
+      return docRefs;
     },
     getMany: async ({ids}) => {
       const docRefs = await firestore.helperGetDocs({collectionName: 'taps', ids});
