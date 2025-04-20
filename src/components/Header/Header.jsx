@@ -1,13 +1,14 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import WhiteButton from '../WhiteButton';
-import { useAuth } from '../../contexts/AuthContext';
 import BlackButton from '../BlackButton';
+import { useNavigate } from 'react-router-dom';
 import FancyButton from '../buttons/FancyButton';
+import { useAuth } from '../../contexts/AuthContext';
+import { useSpace } from '../../contexts/SpaceContext';
 
 const Header = () => {
   const navigate = useNavigate();
   const { currentUser, logout } = useAuth();
+  const { currentSpace } = useSpace();
 
   const handleLogout = async () => {
     try {
@@ -19,28 +20,39 @@ const Header = () => {
   };
 
   return (
-    <header className="h-[80px] border-b border-gray-700 px-8 bg-white fixed top-0 right-0 left-[250px] z-10">
+    <header className={`h-[80px] px-8 fixed top-0 right-0 left-0 md:left-64 border-b border-soft-gray bg-white z-10`}>
       <div className="h-full flex items-center justify-between">
-        <h1 className="text-3xl tracking-wider gradient-text">Tapdive</h1>
+        <div className="flex items-center">
+          <h1 className="text-lg md:text-3xl tracking-wider gradient-text">Tapdive</h1>
+
+          {currentSpace && (
+            <div className="ml-2 md:ml-6 flex items-center">
+              <span className="text-md md:text-2xl md:mr-2">{currentSpace.emoji || '🚀'}</span>
+              <h2 className="text-md md:text-xl font-medium">{currentSpace.name}</h2>
+            </div>
+          )}
+        </div>
 
         {currentUser && (
-          <div className="flex items-center gap-4">
-            <div className="text-sm text-gray-600">
+          <div className="flex items-center gap-2 md:gap-4">
+            <div className="text-sm text-gray-600 hidden md:block">
               {currentUser.email}
             </div>
 
             <FancyButton
               onClick={() => navigate('/new-tap')}
             >
-              Create New Tap
+              <span className="text-xs md:text-base">Create New Tap</span>
             </FancyButton>
 
-            <BlackButton
-              onClick={handleLogout}
-              className="px-4 py-2 text-sm text-gray-600 hover:text-gray-900"
+            <div className="hidden md:block">
+              <BlackButton
+                onClick={handleLogout}
+                className="px-4 py-2 text-sm text-gray-600 hover:text-gray-900"
             >
-              Logout
-            </BlackButton>
+                Logout
+              </BlackButton>
+            </div>
           </div>
         )}
       </div>

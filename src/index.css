@@ -12,7 +12,9 @@
   --color-secondary4: #F6E05E;
   --color-secondary5: #F9D949;
   --color-text: #1A202C;
-  --color-border: #7c8493;
+  --color-borders: #d7d0dd;
+  --color-soft-gray: #d7d0dd;
+  --color-dark-gray: #2d2d2d;
   --color-background: #FFFFFF;
 }
 
@@ -28,7 +30,9 @@
   --color-secondary4: #F6E05E;
   --color-secondary5: #F9D949;
   --color-text: #1A202C;
-  --color-borders: #7c8493;
+  --color-borders: #d7d0dd;
+  --color-soft-gray: #d7d0dd;
+  --color-dark-gray: #2d2d2d;
   --color-background: #FFFFFF;
 }
 
@@ -46,7 +50,9 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Cormorant Garamond', serif;
+    /* font-family: 'Bodoni Moda', serif; */
+    /* font-family: 'Cormorant Garamond', serif; */
+    font-family: 'Fraunces', serif;
     font-weight: bold;
   }
 }
@@ -57,7 +63,7 @@
   }
 
   .section-border {
-    @apply border border-borders rounded;
+    @apply border border-soft-gray rounded;
   }
 
   .flashy-shadow {
