@@ -75,7 +75,7 @@ const firestore = {
       return docRef;
     },
     get: async ({id}) => {
-      const docRef = await firestore.helperGetDocs({collection: 'taps', id});
+      const docRef = await firestore.helperGetDoc({collection: 'taps', id});
 
       return docRef;
     },
@@ -90,6 +90,7 @@ const firestore = {
       return docRefs;
     },
     archive: async ({data}) => {
+      console.log({data});
       if(!data.id) {
         throw new Error('Tap ID is required');
       }

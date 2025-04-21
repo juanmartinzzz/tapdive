@@ -1,7 +1,8 @@
-import { EyeClosed, LockIcon } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const PublicTaps = ({taps}) => {
+  const navigate = useNavigate();
   const [isExpanded, setIsExpanded] = useState(true);
 
   return (

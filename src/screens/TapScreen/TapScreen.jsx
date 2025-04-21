@@ -6,7 +6,7 @@ import BlackButton from "../../components/BlackButton";
 import { CircleAlert, EyeIcon } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
 
-const EditableSection = ({ tap, section, index, onUpdate, isEditing, currentUser }) => {
+const EditableSection = ({ tap, section, index, onUpdate, isEditing, currentUser, handleToggleIsPublic }) => {
   const [isFullViewVisible, setIsFullViewVisible] = useState(false);
 
   if (!isEditing) {
@@ -14,13 +14,16 @@ const EditableSection = ({ tap, section, index, onUpdate, isEditing, currentUser
       <div className="flex flex-col items-center">
         <div className="md:w-xl">
           <div className="flex justify-between items-center gap-2">
-            <h1 className={`font-bold ${index === 0 ? 'text-5xl gradient-text' : 'text-4xl'}`}>
+            <h1 className={`pb-1.5 font-bold ${index === 0 ? 'text-5xl gradient-text' : 'text-4xl'} leading-none`}>
               {section.fastView}
             </h1>
 
-            {currentUser && index === 0 && !tap.isPublic && <WhiteButton>Publish</WhiteButton>}
+            {index === 0 && (
+              <WhiteButton onClick={handleToggleIsPublic}>
+                {(currentUser && !tap.isPublic) ? 'Publish' : 'Make Private'}
+              </WhiteButton>
+            )}
 
-            {currentUser && index === 0 && tap.isPublic && <WhiteButton>Make Private</WhiteButton>}
           </div>
 
           {!isFullViewVisible ? (
@@ -101,13 +104,7 @@ const TapScreen = () => {
 
   const handleSave = async () => {
     try {
-      await firestore.tap.upsert({
-        data: {
-          id: tapId,
-          sections: editedSections
-        }
-      });
-
+      await firestore.tap.upsert({data: {...tap, sections: editedSections}});
       setTap({ ...tap, sections: editedSections });
 
       setIsEditing(false);
@@ -117,7 +114,7 @@ const TapScreen = () => {
     }
   };
 
-  const handleArchive = async ({tap}) => {
+  const handleArchive = async () => {
     try {
       await firestore.tap.archive({data: tap});
       navigate('/');
@@ -125,6 +122,16 @@ const TapScreen = () => {
       console.error('Error archiving tap:', error);
     }
   };
+
+  const handleToggleIsPublic = async () => {
+    // Upsert a tap and flip its isPublic value
+    await firestore.tap.upsert({data: { ...tap, isPublic: !tap.isPublic }});
+    setTap({ ...tap, isPublic: !tap.isPublic });
+
+    // Reload the page
+    window.location.reload();
+  };
+
   if (!tap) return null;
 
   return (
@@ -137,10 +144,13 @@ const TapScreen = () => {
             index={index}
             onUpdate={handleSectionUpdate}
             isEditing={isEditing}
+            currentUser={currentUser}
+            handleToggleIsPublic={handleToggleIsPublic}
           />
         </div>
       ))}
 
+      {/* Post-tap options */}
       {currentUser && (
         <div className="mt-8 flex gap-4 justify-center">
           {isEditing ? (
