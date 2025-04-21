@@ -79,13 +79,13 @@ const firestore = {
 
       return docRef;
     },
-    getBySpaceId: async ({spaceId}) => {
-      const docRefs = await firestore.helperGetDocsByQuery({q: query(collection(db, 'taps'), where('spaceId', '==', spaceId))});
+    getByUserId: async ({userId}) => {
+      const docRefs = await firestore.helperGetDocsByQuery({q: query(collection(db, 'taps'), where('userId', '==', userId), where('isArchived', '==', false))});
 
       return docRefs;
     },
-    getMany: async ({ids}) => {
-      const docRefs = await firestore.helperGetDocsByQuery({q: query(collection(db, 'taps'), where(documentId(), 'in', ids), where('isArchived', '==', false))});
+    getBySpaceId: async ({spaceId}) => {
+      const docRefs = await firestore.helperGetDocsByQuery({q: query(collection(db, 'taps'), where('spaceId', '==', spaceId))});
 
       return docRefs;
     },

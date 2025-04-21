@@ -7,6 +7,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useSpace } from '../../contexts/SpaceContext';
 import firestore from '../../integrations/firestore';
 import SpaceTaps from './SpaceTaps';
+import { User } from 'lucide-react';
 
 const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, sidebarWidth }) => {
   const navigate = useNavigate();
@@ -19,10 +20,8 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, sidebarWidth }) => {
 
   useEffect(() => {
     if(currentUser) {
-      firestore.userTapId.get({userId: currentUser.uid}).then(userTapIds => {
-        firestore.tap.getMany({ids: userTapIds.map(userTapId => userTapId.tapId)}).then(taps => {
-          setTaps(taps);
-        });
+      firestore.tap.getByUserId({userId: currentUser.uid}).then(taps => {
+        setTaps(taps);
       });
     }
   }, [currentUser]);
@@ -36,12 +35,17 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, sidebarWidth }) => {
     <div className={`w-0 p-0 md:w-64 md:px-4 h-screen flex flex-col justify-between bg-white border-r border-soft-gray fixed left-0 top-0 ${isSidebarOpen ? 'block' : 'hidden'} overflow-hidden`}>
       <div>
         {currentUser ? (
-          <div className="h-[80px] flex items-center gap-4 border-b border-soft-gray">
-            <div className="w-10 h-10 rounded-full overflow-hidden shadow-sm shadow-black/70">
-              <img src="https://i.pravatar.cc/300" alt="User" className="w-full h-full object-cover" />
+          <div className="h-[80px] flex justify-center items-center gap-4 border-b border-soft-gray">
+            {/* <div className="p-4 rounded-full shadow-md shadow-black/20">
+              <User size={24} />
             </div>
-
-            <span>U</span>
+            <span>Account</span> */}
+            <WhiteButton onClick={() => navigate('/account')}>
+              <div className="flex items-center gap-2">
+                <User size={24} />
+                <span>Account</span>
+              </div>
+            </WhiteButton>
           </div>
         ) : (
           <div className="mt-3 flex flex-col gap-2">
@@ -103,10 +107,9 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen, sidebarWidth }) => {
         )}
       </div>
 
-      <div className="flex flex-col gap-1">
-        <a href="#" className="py-2 flex items-center justify-between border-none bg-transparent text-gray-800 text-base cursor-pointer text-left w-full hover:bg-gray-100">Settings</a>
-        <a href="#" className="py-2 flex items-center justify-between border-none bg-transparent text-gray-800 text-base cursor-pointer text-left w-full hover:bg-gray-100">Help</a>
-        <a href="#" className="py-2 flex items-center justify-between border-none bg-transparent text-gray-800 text-base cursor-pointer text-left w-full hover:bg-gray-100">About</a>
+      <div className="mb-2 flex flex-col gap-1">
+        <a href="#" className="cursor-pointer">Help</a>
+        <a href="#" className="cursor-pointer">About</a>
       </div>
 
     </div>

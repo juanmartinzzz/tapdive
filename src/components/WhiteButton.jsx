@@ -1,10 +1,10 @@
-const WhiteButton = ({ children, fullWidth, padding = '4', disabled, onClick }) => {
+const WhiteButton = ({ children, fullWidth, noPadding, disabled, onClick }) => {
   const classes = {
-    padding: `p-${padding}`,
     border: 'border border-gray-500',
     shadow: 'shadow-lg',
     rounded: 'rounded-full',
     hover: 'hover:opacity-90',
+    padding: noPadding ? '' : 'p-4',
     width: fullWidth ? 'w-full' : '',
     cursor: disabled ? 'cursor-not-allowed' : 'cursor-pointer',
   }

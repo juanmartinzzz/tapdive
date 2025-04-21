@@ -18,9 +18,9 @@ const EditableSection = ({ tap, section, index, onUpdate, isEditing, currentUser
               {section.fastView}
             </h1>
 
-            {index === 0 && (
+            {index === 0 && currentUser && (
               <WhiteButton onClick={handleToggleIsPublic}>
-                {(currentUser && !tap.isPublic) ? 'Publish' : 'Make Private'}
+                {(!tap.isPublic) ? 'Publish' : 'Make Private'}
               </WhiteButton>
             )}
 
@@ -35,8 +35,10 @@ const EditableSection = ({ tap, section, index, onUpdate, isEditing, currentUser
               </BlackButton>
             </div>
           ) : (
-            <div className="mt-8 text-lg">
-              <p>{section.fullView}</p>
+            <div className="mt-8 text-lg flex flex-col gap-4">
+              {section.fullView.split('\n').filter(line => line.trim() !== '').map((line, index) => (
+                <p key={index}>{line}</p>
+              ))}
             </div>
           )}
         </div>

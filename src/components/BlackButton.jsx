@@ -1,10 +1,10 @@
-const BlackButton = ({ children, fullWidth, padding = '4', disabled, onClick }) => {
+const BlackButton = ({ children, fullWidth, noPadding, disabled, onClick }) => {
   const classes = {
-    padding: `p-${padding}`,
     background: 'bg-black',
     color: 'text-white',
     rounded: 'rounded-full',
     hover: 'hover:opacity-90',
+    padding: noPadding ? '' : 'p-4',
     width: fullWidth ? 'w-full' : '',
     cursor: disabled ? 'cursor-not-allowed' : 'cursor-pointer',
   }
