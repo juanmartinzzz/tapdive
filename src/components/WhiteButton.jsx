@@ -1,7 +1,17 @@
-const WhiteButton = ({ children, fullWidth, disabled, onClick }) => {
+const WhiteButton = ({ children, fullWidth, padding = '4', disabled, onClick }) => {
+  const classes = {
+    padding: `p-${padding}`,
+    border: 'border border-gray-500',
+    shadow: 'shadow-lg',
+    rounded: 'rounded-full',
+    hover: 'hover:opacity-90',
+    width: fullWidth ? 'w-full' : '',
+    cursor: disabled ? 'cursor-not-allowed' : 'cursor-pointer',
+  }
+
   return (
     <button
-      className={`${fullWidth ? 'w-full' : ''} p-4 bg-white text-black border border-gray-500 shadow-lg rounded-full ${disabled ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-90 cursor-pointer'}`}
+      className={Object.values(classes).join(' ')}
       onClick={onClick}
       disabled={disabled}
     >
