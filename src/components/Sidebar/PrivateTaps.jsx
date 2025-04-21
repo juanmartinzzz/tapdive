@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Eye } from "lucide-react";
+import { Eye, Plus } from "lucide-react";
 import { useNavigate } from "react-router";
+import WhiteButton from "../WhiteButton";
 
 const PrivateTaps = ({taps}) => {
   const navigate = useNavigate();
@@ -13,14 +14,13 @@ const PrivateTaps = ({taps}) => {
         onClick={() => setIsExpanded(!isExpanded)}
       >
         <h3 className="font-bold">Private Taps</h3>
-        {/* <span className={`text-sm transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}>▼</span> */}
       </button>
+
       {isExpanded && (
         <div className="flex flex-col pl-2">
           {taps.filter(tap => !tap.isPublic).map(tap => (
             <div key={tap.id} onClick={() => navigate(`/tap/${tap.id}`)} className="py-2 px-3 text-gray-800 text-sm hover:bg-gray-100 cursor-pointer flex justify-between items-center gap-2">
               {tap.sections[0].fastView}
-              <Eye size={16} />
             </div>
           ))}
         </div>

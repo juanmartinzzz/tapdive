@@ -39,17 +39,12 @@ const Header = () => {
               {currentUser.email}
             </div>
 
-            <FancyButton
-              onClick={() => navigate('/new-tap')}
-            >
-              <span className="text-xs md:text-base">Create New Tap</span>
+            <FancyButton onClick={() => navigate('/new-tap')}>
+              <span className="text-sm md:text-base">Create a Tap</span>
             </FancyButton>
 
             <div className="hidden md:block">
-              <BlackButton
-                onClick={handleLogout}
-                className="px-4 py-2 text-sm text-gray-600 hover:text-gray-900"
-            >
+              <BlackButton onClick={handleLogout}>
                 Logout
               </BlackButton>
             </div>

@@ -62,16 +62,20 @@ const firestore = {
   },
   tap: {
     upsert: async ({data}) => {
-      const dataToUpsert = {
-        isPublic: true,
-        ...data
+      const dataToUpsert = data;
+
+      // Default values for new entities
+      if(!dataToUpsert.id) {
+        dataToUpsert.isPublic = true;
+        dataToUpsert.isArchived = false;
       }
-      const docRef = await firestore.helperUpsertDoc({collectionName: 'taps', data});
+
+      const docRef = await firestore.helperUpsertDoc({collectionName: 'taps', data: dataToUpsert});
 
       return docRef;
     },
     get: async ({id}) => {
-      const docRef = await firestore.helperGetDoc({collection: 'taps', id});
+      const docRef = await firestore.helperGetDocs({collection: 'taps', id});
 
       return docRef;
     },
@@ -81,11 +85,14 @@ const firestore = {
       return docRefs;
     },
     getMany: async ({ids}) => {
-      const docRefs = await firestore.helperGetDocs({collectionName: 'taps', ids});
+      const docRefs = await firestore.helperGetDocsByQuery({q: query(collection(db, 'taps'), where(documentId(), 'in', ids), where('isArchived', '==', false))});
 
       return docRefs;
     },
     archive: async ({data}) => {
+      if(!data.id) {
+        throw new Error('Tap ID is required');
+      }
       const docRef = await firestore.helperUpsertDoc({collectionName: 'taps', data: {
         ...data,
         isArchived: true,
@@ -139,21 +146,6 @@ const firestore = {
     },
     archive: async ({data}) => {
       const docRef = await firestore.helperUpsertDoc({collectionName: 'spaces', data: {
-        ...data,
-        isArchived: true,
-      }});
-
-      return docRef;
-    }
-  },
-  spaceTap: {
-    upsert: async ({spaceId, data}) => {
-      const docRef = await firestore.helperUpsertDoc({collectionName: `spaces/${spaceId}/taps`, data});
-
-      return docRef;
-    },
-    archive: async ({spaceId, data}) => {
-      const docRef = await firestore.helperUpsertDoc({collectionName: `spaces/${spaceId}/taps`, data: {
         ...data,
         isArchived: true,
       }});
