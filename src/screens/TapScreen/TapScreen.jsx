@@ -5,8 +5,11 @@ import WhiteButton from "../../components/WhiteButton";
 import BlackButton from "../../components/BlackButton";
 import { CircleAlert, EyeIcon } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
+import FullView from "./FullView";
+import { SiX } from "@icons-pack/react-simple-icons";
+import FastView from "./FastView";
 
-const EditableSection = ({ tap, section, index, onUpdate, isEditing, currentUser, handleToggleIsPublic }) => {
+const EditableSection = ({ section, index, onUpdate, isEditing }) => {
   const [isFullViewVisible, setIsFullViewVisible] = useState(false);
 
   if (!isEditing) {
@@ -14,31 +17,20 @@ const EditableSection = ({ tap, section, index, onUpdate, isEditing, currentUser
       <div className="flex flex-col items-center">
         <div className="md:w-xl">
           <div className="flex justify-between items-center gap-2">
-            <h1 className={`pb-1.5 font-bold ${index === 0 ? 'text-5xl gradient-text' : 'text-4xl'} leading-none`}>
-              {section.fastView}
-            </h1>
-
-            {index === 0 && currentUser && (
-              <WhiteButton onClick={handleToggleIsPublic}>
-                {(!tap.isPublic) ? 'Publish' : 'Make Private'}
-              </WhiteButton>
-            )}
-
+            <FastView content={section.fastView} index={index} />
           </div>
 
           {!isFullViewVisible ? (
             <div className="mt-8 flex justify-center">
               <BlackButton onClick={() => setIsFullViewVisible(!isFullViewVisible)}>
                 <div className="flex items-center gap-2">
-                  Dive In <EyeIcon size={24} />
+                  Dive In
                 </div>
               </BlackButton>
             </div>
           ) : (
-            <div className="mt-8 text-lg flex flex-col gap-4">
-              {section.fullView.split('\n').filter(line => line.trim() !== '').map((line, index) => (
-                <p key={index}>{line}</p>
-              ))}
+            <div className="mt-8">
+              <FullView content={section.fullView} />
             </div>
           )}
         </div>
@@ -116,6 +108,18 @@ const TapScreen = () => {
     }
   };
 
+  const handleShareOnX = async () => {
+    // Copy the first section's fastView to clipboard
+    navigator.clipboard.writeText(tap.sections[0].fastView);
+    /** @TODO create constants for routes and reference those, instead of using strings */
+    const tapUrl = `${import.meta.env.VITE_APP_URL}/tap/${tap.id}`;
+
+    const message = `${encodeURIComponent(tap.sections[0].fastView)} - ${tapUrl}`;
+
+    // Open the X share dialog
+    window.open(`https://x.com/intent/tweet?text=${message}`, '_blank');
+  };
+
   const handleArchive = async () => {
     try {
       await firestore.tap.archive({data: tap});
@@ -180,6 +184,14 @@ const TapScreen = () => {
                 <div className="flex items-center gap-2">
                   Edit
                 </div>
+              </WhiteButton>
+
+              <WhiteButton onClick={handleToggleIsPublic}>
+                {(!tap.isPublic) ? 'Publish' : 'Make Private'}
+              </WhiteButton>
+
+              <WhiteButton onClick={handleShareOnX}>
+                <SiX size={24} />
               </WhiteButton>
 
               <BlackButton onClick={handleArchive}>

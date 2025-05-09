@@ -13,7 +13,7 @@ const Header = () => {
   const handleLogout = async () => {
     try {
       await logout();
-      navigate('/login');
+      navigate('/');
     } catch (error) {
       console.error('Failed to log out:', error);
     }
@@ -33,23 +33,25 @@ const Header = () => {
           )}
         </div>
 
-        {currentUser && (
-          <div className="flex items-center gap-2 md:gap-4">
+        <div className="flex items-center gap-2 md:gap-4">
+          {currentUser && (
             <div className="text-sm text-gray-600 hidden md:block">
               {currentUser.email}
             </div>
+          )}
 
-            <FancyButton onClick={() => navigate('/new-tap')}>
-              <span className="text-sm md:text-base">Create a Tap</span>
-            </FancyButton>
+          <FancyButton onClick={() => navigate(currentUser ? '/new-tap' : '/login?redirect=/new-tap')}>
+            <span className="text-sm md:text-base">Create a Tap</span>
+          </FancyButton>
 
+          {currentUser && (
             <div className="hidden md:block">
               <BlackButton onClick={handleLogout}>
                 Logout
               </BlackButton>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </header>
   );

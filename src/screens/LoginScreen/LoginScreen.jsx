@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import BlackButton from '../../components/BlackButton';
-import WhiteButton from '../../components/WhiteButton';
+import { useNavigate, Link, useSearchParams } from 'react-router-dom';
 
 const LoginScreen = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
   const { login } = useAuth();
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
+  const [searchParams] = useSearchParams();
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const redirect = searchParams.get('redirect');
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -19,7 +20,10 @@ const LoginScreen = () => {
       setError('');
       setLoading(true);
       await login(email, password);
-      navigate('/');
+
+      // Navigate to redirect if present, or navigate to home page.
+      const urlToNavigate = redirect || '/';
+      navigate(urlToNavigate);
     } catch (error) {
       setError('Failed to sign in. Please check your credentials.');
     }
@@ -87,9 +91,9 @@ const LoginScreen = () => {
         </form>
 
         <div className="text-center">
-          <p className="text-sm text-gray-600">
+          <p className="text-dark-gray">
             Don't have an account?{' '}
-            <Link to="/signup" className="font-medium text-primary hover:text-primary-dark">
+            <Link to="/signup" className="font-medium text-primary hover:text-primary-dark gradient-text">
               Sign up
             </Link>
           </p>
