@@ -21,7 +21,7 @@ const firestore = {
 
     try {
       if(data.id) {
-        const docRef = await setDoc(doc(collection(db, collectionName), data.id), dataToAdd);
+        const docRef = await setDoc(doc(collection(db, collectionName), data.id), dataToAdd, {merge: true});
 
         return docRef;
       } else {
@@ -115,6 +115,11 @@ const firestore = {
     }
   },
   user: {
+    getById: async ({id}) => {
+      const docRef = await firestore.helperGetDoc({collection: 'users', id});
+
+      return docRef;
+    },
     upsert: async ({data}) => {
       const docRef = await firestore.helperUpsertDoc({collectionName: 'users', data});
 

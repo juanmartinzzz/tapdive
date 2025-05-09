@@ -5,6 +5,7 @@ import HomeScreen from './screens/HomeScreen/HomeScreen';
 import NewTapScreen from './screens/NewTapScreen/NewTapScreen';
 import LoginScreen from './screens/LoginScreen/LoginScreen';
 import SignupScreen from './screens/SignupScreen/SignupScreen';
+import AccountScreen from './screens/AccountScreen/AccountScreen';
 import PrivateRoute from './components/PrivateRoute';
 import { AuthProvider } from './contexts/AuthContext';
 import { SpaceProvider } from './contexts/SpaceContext';
@@ -23,6 +24,8 @@ function App() {
             <Route path="/login" element={<LoginScreen />} />
 
             <Route path="/signup" element={<SignupScreen />} />
+
+            <Route path="/account" element={<AccountScreen />} />
 
             <Route
               path="/"

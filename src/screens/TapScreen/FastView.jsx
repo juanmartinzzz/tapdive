@@ -12,7 +12,7 @@ const getWordsOrEmojis = ({ content }) => {
 };
 const FastView = ({ content, index }) => {
   return (
-    <h1 className={`pb-1.5 font-bold ${index === 0 ? 'text-5xl gradient-text' : 'text-4xl'} leading-none`}>
+    <h1 className={`pb-1.5 font-bold ${index === 0 ? 'text-3xl md:text-5xl gradient-text' : 'text-2xl md:text-4xl'} leading-none`}>
       {getWordsOrEmojis({ content })}
     </h1>
   )

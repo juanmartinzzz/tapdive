@@ -1,13 +1,14 @@
-import { useNavigate, useParams } from "react-router";
+import FullView from "./FullView";
+import FastView from "./FastView";
+import { CircleAlert } from "lucide-react";
 import { useEffect, useState } from "react";
+import HeaderSection from "./HeaderSection";
+import { SiX } from "@icons-pack/react-simple-icons";
 import firestore from "../../integrations/firestore";
+import { useAuth } from "../../contexts/AuthContext";
+import { useNavigate, useParams } from "react-router";
 import WhiteButton from "../../components/WhiteButton";
 import BlackButton from "../../components/BlackButton";
-import { CircleAlert, EyeIcon } from "lucide-react";
-import { useAuth } from "../../contexts/AuthContext";
-import FullView from "./FullView";
-import { SiX } from "@icons-pack/react-simple-icons";
-import FastView from "./FastView";
 
 const EditableSection = ({ section, index, onUpdate, isEditing }) => {
   const [isFullViewVisible, setIsFullViewVisible] = useState(false);
@@ -142,6 +143,8 @@ const TapScreen = () => {
 
   return (
     <div className="py-12 px-8">
+      <HeaderSection tap={tap} currentUser={currentUser} />
+
       {editedSections.map((section, index) => (
         <div key={index} className="mb-12">
           <EditableSection
